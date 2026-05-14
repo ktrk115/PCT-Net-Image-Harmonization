@@ -1,7 +1,6 @@
 import cv2
 import torch
 from collections import namedtuple
-from kornia.color import rgb_to_hsv, hsv_to_rgb
 
 
 class EvalTransform:
@@ -109,9 +108,11 @@ class RGB2HSV(EvalTransform):
         super().__init__()
 
     def transform(self, image, mask):
+        from kornia.color import rgb_to_hsv
         image = rgb_to_hsv(image)
         return image, mask
 
     def inv_transform(self, image):
+        from kornia.color import hsv_to_rgb
         image = hsv_to_rgb(image)
         return image

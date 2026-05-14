@@ -2,7 +2,6 @@ import torch
 import numpy as np
 
 import torchvision.transforms as T
-from kornia.color import rgb_to_hsv, hsv_to_rgb, yuv_to_rgb, rgb_to_yuv
 
 
 class PCT():
@@ -36,9 +35,11 @@ class PCT():
         self.color_trf_in = lambda x: x
         self.color_trf_out = lambda x: x
         if color_space == 'HSV':
+            from kornia.color import rgb_to_hsv, hsv_to_rgb
             self.color_trf_in = rgb_to_hsv()
             self.color_trf_out = hsv_to_rgb()
         elif color_space == 'YUV':
+            from kornia.color import rgb_to_yuv, yuv_to_rgb
             self.color_trf_in = rgb_to_yuv()
             self.color_trf_out = yuv_to_rgb()
         

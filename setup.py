@@ -7,9 +7,7 @@ setup(
     install_requires=[
         "torch>=1.12.0",
         "torchvision>=0.13.0",
-        "numpy",
         "einops",
-        "kornia",
         "opencv-python",
     ],
 )
