@@ -1,4 +1,3 @@
-import cv2
 import torch
 from collections import namedtuple
 
@@ -25,14 +24,18 @@ class PadToDivisor(EvalTransform):
     """
     PadParams = namedtuple('PadParams', ['top', 'bottom', 'left', 'right'])
 
-    def __init__(self, divisor, border_mode=cv2.BORDER_CONSTANT, fill_value=0):
+    def __init__(self, divisor, border_mode=None, fill_value=0):
         super().__init__()
+        if border_mode is None:
+            import cv2
+            border_mode = cv2.BORDER_CONSTANT
         self.border_mode = border_mode
         self.fill_value = fill_value
         self.divisor = divisor
         self._pads = None
 
     def transform(self, image, mask):
+        import cv2
         self._pads = PadToDivisor.PadParams(*self._get_dim_padding(image.shape[0]),
                                             *self._get_dim_padding(image.shape[1]))
 

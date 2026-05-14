@@ -1,7 +1,6 @@
 from time import time
 from tqdm import trange
 import os
-import cv2
 import numpy as np
 import torch
 import pandas as pd
@@ -62,11 +61,12 @@ def evaluate_dataset(dataset, predictor, metrics_hub_lowres, metrics_hub_fullres
         metric_data.append([imname, mse, psnr, fmse, se, ssim, height, width, mask_area])
 
         if visdir and sample_i % 1 == 0:
+            import cv2
 
             raw_mask = raw_mask.cpu().numpy()
             raw_mask = np.stack([raw_mask]*3, axis=2) * 255
             pred_fullres = pred_fullres.cpu().numpy()
-            
+
             # Fullres
             cv2.imwrite(os.path.join(visdir, f'{imname}_harmonized.jpg'), pred_fullres[:,:,::-1], [int(cv2.IMWRITE_JPEG_QUALITY), 100])
             cv2.imwrite(os.path.join(visdir, f'{imname}_real.jpg'), bdata['target_image'][:, :, ::-1], [int(cv2.IMWRITE_JPEG_QUALITY), 100])

@@ -8,15 +8,20 @@ Fork of PCT-Net packaged for use as a library. See [README.md](../README.md) for
 uv add git+https://github.com/ktrk115/PCT-Net-Image-Harmonization.git
 ```
 
-Inference dependencies (`torch>=1.12`, `torchvision>=0.13`, `einops`,
-`opencv-python`) are installed automatically. If you need a specific
-CUDA build of torch, install it yourself first.
+Inference dependencies (`torch>=1.12`, `torchvision>=0.13`, `einops`)
+are installed automatically. If you need a specific CUDA build of torch,
+install it yourself first.
 
-`kornia` is only required for HSV/YUV color-space variants and
-`Predictor(hsv=True)`; the released `PCTNet_CNN` / `PCTNet_ViT` checkpoints
-are RGB so it is not pulled in. Install it manually if you need those paths.
-Training/eval extras (`tensorboard`, `albumentations`, `pandas`,
-`pytorch_msssim`, `tqdm`, etc.) are not pulled in — see `requirements.txt`.
+Optional extras (installed only when you actually use the code paths that
+need them):
+
+- `kornia` — HSV / YUV color-space variants, `Predictor(hsv=True)`. The
+  released `PCTNet_CNN` / `PCTNet_ViT` checkpoints are RGB-only.
+- `opencv-python` — `PadToDivisor` and the eval-time image writer in
+  `iharm.inference.evaluation`.
+- `tensorboard` — `SummaryWriterAvg` (training only).
+- `albumentations`, `pandas`, `pytorch_msssim`, `tqdm`, etc. — training /
+  iHarmony4 evaluation. See `requirements.txt`.
 
 ## Load a pretrained model
 
